@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/fragments :: styles}"></th:block>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:replace="~{fragments/fragments :: navbar}"></th:block>
+
+
+    <h1 class="d-flex justify-content-center mt-5">Benvenuto nella nostra pizzeria</h1>
+
+    <div class="container">
+        <p class="text-center p-size">Da anni prepariamo pizze con passione, seguendo la tradizione italiana e
+            scegliendo solo
+            ingredienti freschi
+            e
+            genuini. Il nostro impasto, leggero e digeribile, lievita lentamente per garantire fragranza e gusto unici.
+        </p>
+
+        <div class="d-flex justify-content-center">
+            <img th:src="@{/img/caricatura.png}" alt="" style="width: 300px;">
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

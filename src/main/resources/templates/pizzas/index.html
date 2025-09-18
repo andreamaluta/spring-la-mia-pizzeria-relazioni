@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/fragments :: styles}"></th:block>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:replace="~{fragments/fragments :: navbar}"></th:block>
+
+
+
+
+    <div class="d-flex align-items-center my-5 flex-column">
+
+        <p th:if="${list.isEmpty()}" class="p-size">
+            Non ci sono pizze al momento
+        </p>
+
+        <table th:if="${!list.isEmpty()}">
+            <tr>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>Immagine</th>
+                <th>Prezzo</th>
+                <th>Action</th>
+            </tr>
+            <tr th:each="item : ${list}">
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.description}"></td>
+                <td class="p-0">
+                    <img th:src="${item.img}" alt="foto" width="200px">
+                </td>
+                <td th:text="|${item.prize}$|"></td>
+                <td>
+                    <a th:href="@{/pizzas/{id}(id=${item.id})}" class="btn">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                    <a th:href="@{/pizzas/edit/{id}(id=${item.id})}" class="btn">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+                    <form class="d-flex justify-content-center" action="#"
+                        th:action="@{/pizzas/delete/{id}(id=${item.id})}" method="post">
+                        <button class="btn">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+
+</html>

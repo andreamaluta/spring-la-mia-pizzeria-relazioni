@@ -1,0 +1,31 @@
+.nav-border {
+    border: 1px solid black;
+}
+
+.col-2-border {
+    border-right: 1px solid black;
+}
+
+th,
+td {
+    padding: 15px;
+}
+
+
+td {
+    border-top: 1px solid black;
+}
+
+table,
+th,
+td {
+    max-width: 1000px;
+}
+
+.p-size {
+    font-size: 20px;
+}
+
+.form-container {
+    width: 700px;
+}

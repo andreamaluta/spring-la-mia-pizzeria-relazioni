@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/fragments :: styles}"></th:block>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:replace="~{fragments/fragments :: navbar}"></th:block>
+
+    <div class="d-flex justify-content-center" style="margin-top: 50px;">
+        <div class="card" style="width: 30rem;">
+            <img th:src="${pizza.img}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" th:text="${pizza.name}"></h5>
+                <p class="card-text" th:text="${pizza.description}"></p>
+                <p class="card-text" th:text="${pizza.prize} + '$'"></p>
+            </div>
+        </div>
+
+        <!-- Accordion -->
+
+        <div>
+
+            <a th:href="@{/pizzas/offers/{id}(id=${pizza.id})}" class="btn btn-primary ms-3 mb-2">Nuova Offerta</a>
+
+            <div th:each="offer : ${pizza.offerings}" class="accordion accordion-flush ms-3" style="width: 300px;"
+                th:id="'accordionFlushExample' + ${offer.id}">
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" th:id="'heading' + ${offer.id}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            th:attr="data-bs-target='#flush-collapse' + ${offer.id}, aria-controls='flush-collapse' + ${offer.id}"
+                            aria-expanded="false" th:text="${'Offerta numero: ' + offer.id}">
+                        </button>
+                    </h2>
+
+                    <div class="accordion-collapse collapse" th:id="'flush-collapse' + ${offer.id}"
+                        th:attr="aria-labelledby='heading' + ${offer.id}, data-bs-parent='#accordionFlushExample' + ${offer.id}">
+                        <div class="accordion-body d-flex align-items-center justify-content-around">
+                            <div>
+                                <p th:text="${offer.title}"></p>
+                                <p th:text="${offer.startDate}"></p>
+                                <p th:text="${offer.endDate}"></p>
+                            </div>
+                            <div>
+                                <a th:href="@{/offers/edit/{id}(id=${offer.id})}" class="btn btn-primary">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <th:block th:replace="~{fragments/fragments :: scripts}"></th:block>
+
+
+</body>
+
+</html>

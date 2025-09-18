@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/fragments :: styles}"></th:block>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:replace="~{fragments/fragments :: navbar}"></th:block>
+
+    <h1 class="d-flex justify-content-center py-5">Modifica l'offerta</h1>
+
+    <div class="container form-container">
+        <form th:object="${offering}" th:action="@{/offers/edit/{id}(id=${offering.id})}" method="post">
+
+            <!-- Se ci sono errori di validazione -->
+            <div th:if="${#fields.hasErrors('*')}">
+                <ul class="alert alert-danger" style="list-style: none;">
+                    <li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="ps-3"></li>
+                </ul>
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="title">Nome</label>
+                <input class="form-control" type="text" id="title" th:field="*{title}">
+            </div>
+
+            <div class="my-3">
+                <label for="start-date" class="form-label">Data di inizio</label>
+                <input class="form-control" type="date" id="start-date" th:field="${offering.startDate}">
+            </div>
+
+            <div class="my-3">
+                <label class="form-label" for="end-date">Data di fine</label>
+                <input class="form-control" type="date" id="end-date" th:field="*{endDate}">
+            </div>
+
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{pizza.id}" />
+
+
+            <div class="d-flex justify-content-between mt-4">
+                <input type="submit" class="btn btn-primary" value="Crea offerta">
+                <input type="reset" class="btn btn-warning" value="Reset campi">
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
