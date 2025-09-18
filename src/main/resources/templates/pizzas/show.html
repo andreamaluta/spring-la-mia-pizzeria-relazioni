@@ -18,7 +18,8 @@
                 <p class="card-text" th:text="${pizza.description}"></p>
                 <p class="card-text" th:text="${pizza.prize} + '$'"></p>
                 <div>
-                    <h5>Ingredienti:</h5>
+                    <h5 th:if="${!ingredients.isEmpty()}">Ingredienti:</h5>
+                    <h5 th:unless="${!ingredients.isEmpty()}">Nessun ingrediente al momento</h5>
                     <ul>
                         <li th:each="ingredient : ${ingredients}">
                             [[${ingredient.name}]]
