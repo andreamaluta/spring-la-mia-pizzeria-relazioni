@@ -29,3 +29,36 @@ td {
 .form-container {
     width: 700px;
 }
+
+.ul-style {
+    list-style: none;
+    /* rimuove i pallini standard */
+    padding: 0;
+    margin: 0;
+    max-width: 300px;
+}
+
+.li-style {
+    width: 300px;
+    background: white;
+    margin: 10px 0;
+    padding: 15px 20px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ul-style li:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ul-style li::before {
+    content: "✔";
+    color: #4CAF50;
+    font-weight: bold;
+}

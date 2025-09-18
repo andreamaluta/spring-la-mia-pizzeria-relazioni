@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/fragments :: styles}"></th:block>
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:replace="~{fragments/fragments :: navbar}"></th:block>
+
+
+    <div class="d-flex align-items-center my-5 flex-column">
+
+        <div th:if="${ingredient.isEmpty()}" class="d-flex flex-column align-items-center">
+            <h1 class="my-5">
+                Non ci sono ingredienti inseriti al momento
+            </h1>
+
+            <a th:href="@{/ingredients/create}" class="btn btn-primary">Inserisci il primo ingrediente</a>
+        </div>
+
+
+        <div th:if="${!ingredient.isEmpty()}" class="d-flex flex-column align-items-center">
+
+            <h1 class="mb-5 mt-3">Lista degli ingredienti della pizzeria</h1>
+
+            <a th:href="@{/ingredients/create}" class="btn btn-primary mb-3">Inserisci un nuovo ingrediente</a>
+
+            <ul style="list-style: none;" class="ul-style">
+                <li th:each="ing : ${ingredient}" class="li-style">
+                    <div>[[${ing.name}]]</div>
+                    <a th:href="@{/ingredients/edit/{id}(id=${ing.id})}" class="btn btn-primary"><i
+                            class="fa-solid fa-pen"></i></a>
+
+                    <form class="d-flex justify-content-center" action="#"
+                        th:action="@{/ingredients/delete/{id}(id=${ing.id})}" method="post">
+                        <button class="btn btn-danger">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.model.Offering;
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.model.Pizza;
+import org.lesson.java.spring_la_mia_pizzeria_relazioni.repo.IngredientRepository;
 import org.lesson.java.spring_la_mia_pizzeria_relazioni.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,8 +22,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/pizzas")
 public class BookController {
 
+    private final IngredientRepository ingredientRepository;
+
     @Autowired
     private PizzaRepository repository;
+
+    BookController(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
+    }
 
     @GetMapping
     public String index(Model model) {
@@ -36,6 +43,7 @@ public class BookController {
     public String show(@PathVariable("id") Integer id, Model model) {
 
         model.addAttribute("pizza", repository.findById(id).get());
+        model.addAttribute("ingredients", repository.findById(id).get().getIngredients());
 
         return "/pizzas/show";
     }
@@ -44,6 +52,7 @@ public class BookController {
     public String create(Model model) {
 
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientRepository.findAll());
 
         return "/pizzas/create";
     }
@@ -52,6 +61,7 @@ public class BookController {
     public String Store(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientRepository.findAll());
             return "/pizzas/create";
         }
 
@@ -63,6 +73,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
 
+        model.addAttribute("ingredients", ingredientRepository.findAll());
         model.addAttribute("pizza", repository.findById(id).get());
 
         return "/pizzas/edit";
@@ -72,6 +83,8 @@ public class BookController {
     public String update(@Valid @ModelAttribute("pizza") Pizza forPizza, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientRepository.findAll());
+
             return "/pizzas/edit";
         }
 
